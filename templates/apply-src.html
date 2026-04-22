@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply for SRC Fund — GoFundMe Connect</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9fafb;
+      color: #111827;
+    }
+    header {
+      background: #14532d;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    nav {
+      background: #166534;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #14532d;
+      text-align: center;
+    }
+    form {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+    }
+    .field {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #374151;
+      font-weight: bold;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .btn {
+      background: #166534;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    .btn:hover {
+      background: #15803d;
+    }
+    .btn-secondary {
+      background: #6b7280;
+      color: #fff;
+    }
+    .btn-secondary:hover {
+      background: #4b5563;
+    }
+    .form-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      background: #f9fafb;
+    }
+    .form-section h3 {
+      color: #14532d;
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Apply for SRC Fund</h1>
+    <p>University Of Zululand Internal Funding Application</p>
+  </header>
+
+  <nav>
+    <a href="/student-dashboard">← Back to Dashboard</a>
+    <a href="/apply-external">Apply for External Sponsorship</a>
+  </nav>
+
+  <main>
+    <h2>SRC Fund Application Form</h2>
+
+    <form id="srcApplyForm">
+      <div class="form-section">
+        <h3>Personal Information</h3>
+        <div class="field">
+          <label for="fullName">Full Name(s) *</label>
+          <input type="text" id="fullName" name="full_name" required>
+        </div>
+        <div class="field">
+          <label for="studentNumber">Student Number *</label>
+          <input type="text" id="studentNumber" name="student_number" required>
+        </div>
+        <div class="field">
+          <label for="identityNumber">Identity Number *</label>
+          <input type="text" id="identityNumber" name="identity_number" required>
+        </div>
+        <div class="field">
+          <label for="contactNumber">Contact Number *</label>
+          <input type="tel" id="contactNumber" name="contact_number" required>
+        </div>
+        <div class="field">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="field">
+          <label for="gender">Gender *</label>
+          <select id="gender" name="gender" required>
+            <option value="">-- Select Gender --</option>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>Education Information</h3>
+        <div class="field">
+          <label for="campus">Campus *</label>
+          <select id="campus" name="campus" required>
+            <option value="">-- Select Campus --</option>
+            <option value="Main Campus">Main Campus</option>
+            <option value="Richards Bay">Richards Bay</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="qualification">Qualification/Course *</label>
+          <input type="text" id="qualification" name="qualification" placeholder="e.g., Bachelor of Science in Computer Science" required>
+        </div>
+        <div class="field">
+          <label for="faculty">Faculty *</label>
+          <input type="text" id="faculty" name="faculty" placeholder="e.g., Faculty of Science and Agriculture" required>
+        </div>
+        <div class="field">
+          <label for="yearLevel">Year/Level of Study *</label>
+          <select id="yearLevel" name="year_level" required>
+            <option value="">-- Select Year/Level --</option>
+            <option value="First Year">First Year</option>
+            <option value="Second Year">Second Year</option>
+            <option value="Third Year">Third Year</option>
+            <option value="Fourth Year/Honors">Fourth Year/Honors</option>
+            <option value="Masters">Masters</option>
+            <option value="PhD">PhD</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="expectedCompletion">Expected Year of Completion *</label>
+          <input type="date" id="expectedCompletion" name="expected_completion" required>
+        </div>
+        <div class="field">
+          <label for="amountDue">Amount Due (R) *</label>
+          <input type="number" id="amountDue" name="amount_due" min="10000" max="500000" step="100" value="10000" required>
+        </div>
+        <div class="field">
+          <label>Do you have funding for the current year? *</label>
+          <div style="margin-top: 10px;">
+            <input type="radio" id="hasFundingYes" name="has_funding" value="yes" required>
+            <label for="hasFundingYes">Yes</label>
+            <input type="radio" id="hasFundingNo" name="has_funding" value="no" required>
+            <label for="hasFundingNo">No</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>Application Details</h3>
+        <div class="field">
+          <label for="fundingOpportunity">Select Funding Opportunity *</label>
+          <select id="fundingOpportunity" name="opportunity_id" required>
+            <option value="">-- Choose an opportunity --</option>
+              <option value="">SRC Funds</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="reason">Reason for Application *</label>
+          <textarea id="reason" name="reason" rows="5" placeholder="Please explain why you need this funding. Include details about your financial situation, academic performance, and how this funding will help you complete your studies." required></textarea>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>Supporting Documents</h3>
+        <div class="field">
+          <label for="idDocument">Upload ID Document *</label>
+          <input type="file" id="idDocument" name="id_document" accept=".pdf,.jpg,.jpeg,.png" required>
+          <small style="color: #6b7280;">Accepted formats: PDF, JPG, JPEG, PNG (Max 5MB)</small>
+        </div>
+        <div class="field">
+          <label for="doctorNote">Upload Doctor's Note (if applicable)</label>
+          <input type="file" id="doctorNote" name="doctor_note" accept=".pdf,.jpg,.jpeg,.png">
+          <small style="color: #6b7280;">Upload if you have medical reasons for needing funding</small>
+        </div>
+        <div class="field">
+          <label for="otherDocuments">Upload Other Supporting Documents</label>
+          <input type="file" id="otherDocuments" name="other_documents" accept=".pdf,.jpg,.jpeg,.png" multiple>
+          <small style="color: #6b7280;">Academic transcripts, proof of income, etc.</small>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 30px;">
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='/student-dashboard'">Cancel</button>
+        <button type="submit" class="btn">Submit Application</button>
+      </div>
+    </form>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script>
+    // Load SRC funding opportunities
+    async function loadSRCOpportunities() {
+      try {
+        const opportunities = await apiRequest('/funding/src');
+        const select = document.getElementById('fundingOpportunity');
+
+        opportunities.forEach(opp => {
+          const option = document.createElement('option');
+          option.value = opp.opportunity_id;
+          option.textContent = `${opp.title} - R${opp.funding_amount} (Deadline: ${new Date(opp.deadline).toLocaleDateString()})`;
+          select.appendChild(option);
+        });
+      } catch (error) {
+        console.error('Failed to load SRC funding opportunities:', error);
+        alert('Failed to load funding opportunities. Please try again later.');
+      }
+    }
+
+    // Handle form submission
+    document.getElementById('srcApplyForm').addEventListener('submit', async e => {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+
+      try {
+        const result = await apiRequest('/student/apply', {
+          method: 'POST',
+          body: JSON.stringify({
+            opportunity_id: formData.get('opportunity_id'),
+            full_name: formData.get('full_name'),
+            student_number: formData.get('student_number'),
+            identity_number: formData.get('identity_number'),
+            contact_number: formData.get('contact_number'),
+            email: formData.get('email'),
+            gender: formData.get('gender'),
+            campus: formData.get('campus'),
+            qualification: formData.get('qualification'),
+            faculty: formData.get('faculty'),
+            year_level: formData.get('year_level'),
+            expected_completion: formData.get('expected_completion'),
+            amount_due: formData.get('amount_due'),
+            has_funding: formData.get('has_funding'),
+            reason: formData.get('reason')
+          })
+        });
+
+        alert(result.message || 'SRC Application submitted successfully!');
+        window.location.href = '/student-dashboard';
+      } catch (error) {
+        console.error('SRC Application failed:', error);
+        alert('Failed to submit SRC application. Please try again.');
+      }
+    });
+
+    // Load opportunities on page load
+    document.addEventListener('DOMContentLoaded', loadSRCOpportunities);
+  </script>
+</body>
+</html>

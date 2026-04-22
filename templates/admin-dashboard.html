@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — GoFundMe Connect</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .admin-dashboard {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9fafb;
+      color: #111827;
+    }
+    .admin-header {
+      background: #6b21a8;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    .admin-header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .admin-nav {
+      background: #7e22ce;
+      padding: 10px;
+      text-align: center;
+    }
+    .admin-nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .admin-nav a:hover {
+      text-decoration: underline;
+    }
+    .admin-main {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .admin-section h2 {
+      color: #6b21a8;
+      margin-top: 30px;
+    }
+    .admin-form {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      background: #fafafa;
+    }
+    .admin-field {
+      margin-bottom: 15px;
+    }
+    .admin-field label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #374151;
+    }
+    .admin-field input, 
+    .admin-field textarea, 
+    .admin-field select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+    }
+    .admin-btn {
+      background: #6b21a8;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .admin-btn:hover {
+      background: #7e22ce;
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    .admin-table, 
+    .admin-table th, 
+    .admin-table td {
+      border: 1px solid #d1d5db;
+    }
+    .admin-table th, 
+    .admin-table td {
+      padding: 10px;
+      text-align: left;
+    }
+    .admin-table th {
+      background: #f3f4f6;
+    }
+    .verify-actions button {
+      margin-right: 10px;
+    }
+    .btn-reject {
+      background: #b91c1c !important;
+    }
+  </style>
+</head>
+<body class="admin-dashboard">
+  <header class="admin-header">
+    <h1>Admin Dashboard — GoFundMe Connect</h1>
+    <p>Restricted Access: Admin Only</p>
+    <button id="adminLogoutBtn" class="admin-btn">Logout</button>
+  </header>
+
+  <nav class="admin-nav">
+    <a href="#funding">Post Funding Opportunities</a>
+    <a href="#posted">Posted Funding Opportunities</a>
+    <a href="#verify">Verify Documents</a>
+    <a href="#reports">Generate Reports</a>
+  </nav>
+
+  <main class="admin-main">
+    <section id="funding" class="admin-section">
+      <h2>Post New Funding Opportunity</h2>
+      <form class="admin-form" id="fundingForm">
+        <div class="admin-field">
+          <label>Title</label>
+          <input type="text" id="fundingTitle" placeholder="e.g. Tech Scholarship 2025" required>
+        </div>
+        <div class="admin-field">
+          <label>Description</label>
+          <textarea id="fundingDescription" placeholder="Details about this opportunity" required></textarea>
+        </div>
+        <div class="admin-field">
+          <label>Funding Type</label>
+          <select id="fundingType" required>
+            <option value="">-- Select Type --</option>
+            <option value="src">SRC Fund</option>
+            <option value="external">External</option>
+          </select>
+        </div>
+        <div class="admin-field">
+          <label>Funding Amount</label>
+          <input type="number" id="fundingAmount" placeholder="Enter amount" required>
+        </div>
+        <div class="admin-field">
+          <label>Eligibility Criteria</label>
+          <textarea id="fundingCriteria" placeholder="e.g. Min GPA: 3.0, Field: Information Systems"></textarea>
+        </div>
+        <div class="admin-field">
+          <label>Deadline</label>
+          <input type="date" id="fundingDeadline" required>
+        </div>
+        <button class="admin-btn" type="submit">Post Opportunity</button>
+      </form>
+    </section>
+
+    <section id="posted" class="admin-section">
+      <h2>Posted Funding Opportunities</h2>
+      <table class="admin-table" id="postedFundingTable">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Eligibility</th>
+            <th>Deadline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Posted funding opportunities-->
+        </tbody>
+      </table>
+    </section>
+
+    <section id="verify" class="admin-section">
+      <h2>Verify Student Documents</h2>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Email</th>
+            <th>Opportunity</th>
+            <th>Documents</th>
+            <th>Status</th>
+            <th>Applied At</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="applicationsTableBody">
+          <!-- Applications-->
+        </tbody>
+      </table>
+    </section>
+
+    <section id="reports" class="admin-section">
+      <h2>Reports</h2>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Report Type</th>
+            <th>Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Total Students Registered</td>
+            <td>320</td>
+          </tr>
+          <tr>
+            <td>Total Sponsors Registered</td>
+            <td>45</td>
+          </tr>
+          <tr>
+            <td>Total Funding Opportunities Posted</td>
+            <td>12</td>
+          </tr>
+          <tr>
+            <td>Total Amount Sponsored</td>
+            <td>R1,250,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  
+  <!-- Admin-specific JavaScript -->
+  <script>
+    // Admin logout functionality
+    document.getElementById('adminLogoutBtn').addEventListener('click', function() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('role');
+      window.location.href = "{{ url_for('admin_login') }}";
+    });
+
+    // Load applications
+    async function loadApplications() {
+      try {
+        const applications = await apiRequest('/admin/applications');
+        const tbody = document.getElementById('applicationsTableBody');
+        tbody.innerHTML = '';
+        applications.forEach(app => {
+          const documentsList = app.documents && app.documents.length > 0
+            ? app.documents.map(doc => `<a href="/${doc.file_url}" target="_blank" style="color: #6b21a8; text-decoration: none;">${doc.type}</a>`).join(', ')
+            : 'No documents';
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${app.student_name}</td>
+            <td>${app.student_email}</td>
+            <td>${app.opportunity_title}</td>
+            <td>${documentsList}</td>
+            <td>${app.status}</td>
+            <td>${new Date(app.applied_at).toLocaleDateString()}</td>
+            <td class="verify-actions">
+              <button class="admin-btn" data-action="approve" data-application-id="${app.application_id}">Approve</button>
+              <button class="admin-btn btn-reject" data-action="reject" data-application-id="${app.application_id}">Reject</button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      } catch (error) {
+        console.error('Failed to load applications:', error);
+      }
+    }
+
+    // Load posted funding opportunities
+    async function loadPostedFunding() {
+      try {
+        const opportunities = await apiRequest('/admin/funding/list');
+        const tbody = document.querySelector('#postedFundingTable tbody');
+        tbody.innerHTML = '';
+        opportunities.forEach(opp => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${opp.title}</td>
+            <td>${opp.description}</td>
+            <td>${opp.funding_type}</td>
+            <td>R${opp.funding_amount}</td>
+            <td>${opp.eligibility_criteria || 'N/A'}</td>
+            <td>${new Date(opp.deadline).toLocaleDateString()}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      } catch (error) {
+        console.error('Failed to load posted funding opportunities:', error);
+      }
+    }
+
+    // Load reports
+    async function loadReports() {
+      try {
+        const reports = await apiRequest('/admin/reports');
+        const tbody = document.querySelector('#reports tbody');
+        tbody.innerHTML = `
+          <tr>
+            <td>Total Students Registered</td>
+            <td>${reports.total_students}</td>
+          </tr>
+          <tr>
+            <td>Total Sponsors Registered</td>
+            <td>${reports.total_sponsors}</td>
+          </tr>
+          <tr>
+            <td>Total Funding Opportunities Posted</td>
+            <td>${reports.total_opportunities}</td>
+          </tr>
+          <tr>
+            <td>Total Amount Sponsored</td>
+            <td>R${reports.total_amount_sponsored.toLocaleString()}</td>
+          </tr>
+        `;
+      } catch (error) {
+        console.error('Failed to load reports:', error);
+      }
+    }
+
+    // Form submission
+    document.getElementById('fundingForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const title = document.getElementById('fundingTitle').value;
+      const description = document.getElementById('fundingDescription').value;
+      const funding_type = document.getElementById('fundingType').value;
+      const funding_amount = document.getElementById('fundingAmount').value;
+      const eligibility_criteria = document.getElementById('fundingCriteria').value;
+      const deadline = document.getElementById('fundingDeadline').value;
+
+      try {
+        const result = await apiRequest('/admin/post-opportunity', {
+          method: 'POST',
+          body: JSON.stringify({ title, description, funding_type, funding_amount, eligibility_criteria, deadline })
+        });
+        alert(result.message || 'Funding opportunity posted successfully!');
+        this.reset();
+        loadReports(); // Refresh reports
+        loadPostedFunding(); // Refresh posted funding list
+      } catch (error) {
+        console.error('Failed to post opportunity:', error);
+        alert('Failed to post funding opportunity. Please try again.');
+      }
+    });
+
+    // Document verification handling
+    document.addEventListener('click', async function(e) {
+      if (e.target.classList.contains('admin-btn') && e.target.dataset.action) {
+        const action = e.target.dataset.action;
+        const applicationId = e.target.dataset.applicationId;
+        const row = e.target.closest('tr');
+
+        try {
+          const endpoint = action === 'approve' ? '/admin/approve-application' : '/admin/reject-application';
+          const result = await apiRequest(endpoint, {
+            method: 'POST',
+            body: JSON.stringify({ application_id: applicationId })
+          });
+          alert(result.message || `Application ${action}d successfully!`);
+          loadApplications(); // Refresh applications
+        } catch (error) {
+          console.error(`Failed to ${action} application:`, error);
+          alert(`Failed to ${action} application. Please try again.`);
+        }
+      }
+    });
+
+    // Load data on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      loadApplications();
+      loadPostedFunding();
+      loadReports();
+    });
+  </script>
+</body>
+</html>

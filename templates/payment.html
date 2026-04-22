@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment — GoFundMe Connect</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9fafb;
+      color: #111827;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .payment-container {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 30px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      color: #1e3a8a;
+      margin-bottom: 20px;
+    }
+    .payment-details {
+      background: #f3f4f6;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .payment-details p {
+      margin: 8px 0;
+      font-size: 16px;
+    }
+    .payment-methods {
+      margin-bottom: 20px;
+    }
+    .payment-methods h3 {
+      margin-bottom: 15px;
+      color: #374151;
+    }
+    .method-option {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 15px;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+    .method-option:hover {
+      border-color: #1e3a8a;
+    }
+    .method-option.selected {
+      border-color: #1e3a8a;
+      background: #eff6ff;
+    }
+    .method-option input[type="radio"] {
+      margin-right: 15px;
+    }
+    .method-logo {
+      width: 40px;
+      height: 40px;
+      margin-right: 15px;
+      object-fit: contain;
+    }
+    .method-info h4 {
+      margin: 0 0 5px 0;
+      color: #111827;
+    }
+    .method-info p {
+      margin: 0;
+      color: #6b7280;
+      font-size: 14px;
+    }
+    .btn {
+      background: #1e3a8a;
+      color: #fff;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 10px;
+    }
+    .btn:hover {
+      background: #1e40af;
+    }
+    .btn.cancel {
+      background: #dc2626;
+    }
+    .btn.cancel:hover {
+      background: #b91c1c;
+    }
+    .btn:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="payment-container">
+    <h1>Complete Your Payment</h1>
+    <div class="payment-details">
+      <p><strong>Student:</strong> {{ transaction.student_name }}</p>
+      <p><strong>Opportunity:</strong> {{ transaction.opportunity_title }}</p>
+      <p><strong>Amount:</strong> R{{ transaction.amount }}</p>
+    </div>
+
+    <div class="payment-methods">
+      <h3>Select Payment Method</h3>
+      <div class="method-option" onclick="selectPaymentMethod('paypal')">
+        <input type="radio" name="payment_method" value="paypal" id="paypal">
+        <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal" class="method-logo">
+        <div class="method-info">
+          <h4>PayPal</h4>
+          <p>Pay securely with your PayPal account</p>
+        </div>
+      </div>
+      <div class="method-option" onclick="selectPaymentMethod('payfast')">
+        <input type="radio" name="payment_method" value="payfast" id="payfast">
+        <img src="https://www.payfast.co.za/images/logo/payfast_logo.png" alt="PayFast" class="method-logo">
+        <div class="method-info">
+          <h4>PayFast</h4>
+          <p>Pay securely with PayFast</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn" id="payBtn" onclick="initiatePayment()" disabled>Pay Now</button>
+    <button class="btn cancel" onclick="cancelPayment()">Cancel</button>
+  </div>
+
+  <script>
+    const transactionId = {{ transaction.transaction_id }};
+    let selectedPaymentMethod = null;
+
+    function selectPaymentMethod(method) {
+      selectedPaymentMethod = method;
+      document.querySelectorAll('.method-option').forEach(el => {
+        el.classList.remove('selected');
+        el.querySelector('input[type="radio"]').checked = false;
+      });
+      const selectedOption = document.querySelector(`.method-option[onclick="selectPaymentMethod('${method}')"]`);
+      if (selectedOption) {
+        selectedOption.classList.add('selected');
+        selectedOption.querySelector('input[type="radio"]').checked = true;
+      }
+      document.getElementById('payBtn').disabled = false;
+    }
+
+    async function initiatePayment() {
+      if (!selectedPaymentMethod) {
+        alert('Please select a payment method.');
+        return;
+      }
+
+      try {
+        let response, data;
+
+        if (selectedPaymentMethod === 'paypal') {
+          response = await fetch(`/payment/paypal/initiate/${transactionId}`, {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer ' + localStorage.getItem('token'),
+              'Content-Type': 'application/json'
+            }
+          });
+          data = await response.json();
+          if (response.ok && data.approval_url) {
+            window.location.href = data.approval_url;
+          } else {
+            alert('Failed to initiate PayPal payment: ' + (data.error || 'Unknown error'));
+          }
+        } else if (selectedPaymentMethod === 'payfast') {
+          response = await fetch(`/payment/payfast/initiate/${transactionId}`, {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer ' + localStorage.getItem('token'),
+              'Content-Type': 'application/json'
+            }
+          });
+          data = await response.json();
+          if (response.ok) {
+            // Create a form and submit to PayFast
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'https://www.payfast.co.za/eng/process';
+            for (const key in data) {
+              if (data.hasOwnProperty(key)) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = data[key];
+                form.appendChild(input);
+              }
+            }
+            document.body.appendChild(form);
+            form.submit();
+          } else {
+            alert('Failed to initiate PayFast payment: ' + (data.error || 'Unknown error'));
+          }
+        }
+      } catch (error) {
+        console.error('Payment initiation error:', error);
+        alert('Payment initiation failed. Please try again.');
+      }
+    }
+
+    function cancelPayment() {
+      window.location.href = '/sponsor-dashboard';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service - GoFundMe Connect</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo">GoFundMe<span>Connect</span></div>
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('student_login') }}">Students</a></li>
+        <li><a href="{{ url_for('sponsor_login') }}">Sponsors</a></li>
+        <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        <li><a href="{{ url_for('terms') }}" class="active">Terms</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero small-hero">
+    <h1>Terms of Service</h1>
+    <p>These Terms govern your use of GoFundMe Connect, in partnership with the University of Zululand.</p>
+  </section>
+
+  <section class="terms-section">
+    <div class="container">
+      <h2>1. Acceptance of Terms</h2>
+      <p>By accessing or using GoFundMe Connect, you agree to abide by these Terms of Service, our Privacy Policy, and all applicable laws. If you do not agree, please discontinue use of the platform.</p>
+
+      <h2>2. User Accounts</h2>
+      <p>Users must register as either a <strong>Student</strong> or a <strong>Sponsor</strong>. You are responsible for maintaining the confidentiality of your login credentials and for all activities under your account.</p>
+
+      <h2>3. Eligibility</h2>
+      <ul>
+        <li>Students must be enrolled at the University of Zululand with valid documents (e.g., proof of registration, academic record).</li>
+        <li>Sponsors must provide accurate identity or organizational details when registering.</li>
+      </ul>
+
+      <h2>4. Use of the Platform</h2>
+      <p>The platform is intended exclusively for educational funding purposes. Any misuse, including fraud, misrepresentation, or discrimination, is strictly prohibited.</p>
+
+      <h2>5. Sponsorship and Payments</h2>
+      <p>All sponsorship payments are processed securely and directed into student tuition accounts at the University of Zululand. The platform does not allow cash withdrawals by students.</p>
+
+      <h2>6. Verification</h2>
+      <p>Administrators verify student documents before profiles and applications are made visible to sponsors. This process helps prevent fraud and nepotism.</p>
+
+      <h2>7. Limitation of Liability</h2>
+      <p>GoFundMe Connect and the University of Zululand are not liable for indirect losses, delays in payments, or sponsor-student arrangements outside the platform.</p>
+
+      <h2>8. Account Suspension</h2>
+      <p>We reserve the right to suspend or terminate accounts found in violation of these Terms or suspected of fraudulent activity.</p>
+
+      <h2>9. Changes to Terms</h2>
+      <p>These Terms may be updated from time to time. Users will be notified of significant changes through the platform or via email.</p>
+
+      <h2>10. Contact Information</h2>
+      <p>If you have questions about these Terms, please contact us at:  
+      <a href="mailto:support@gofundmeconnect.edu.za">support@gofundmeconnect.edu.za</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>In partnership with the University of Zululand</p>
+    <p class="copyright">&copy; 2025 GoFundMe Connect. All rights reserved.</p>
+  </footer>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

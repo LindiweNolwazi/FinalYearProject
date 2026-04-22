@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - GoFundMe Connect</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="logo">GoFundMe<span>Connect</span></div>
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('student_login') }}">Students</a></li>
+        <li><a href="{{ url_for('sponsor_login') }}">Sponsors</a></li>
+        <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        <li><a href="{{ url_for('privacy') }}" class="active">Privacy</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero small-hero">
+    <h1>Privacy Policy</h1>
+    <p>Your privacy matters to us. This policy explains how we collect, use, and protect your data.</p>
+  </section>
+
+  <section class="terms-section">
+    <div class="container">
+      <h2>1. Information We Collect</h2>
+      <p>We collect personal information provided during registration and use of the platform, including:</p>
+      <ul>
+        <li>Students: Name, student number, email, academic records, proof of registration, and tuition details.</li>
+        <li>Sponsors: Name/organization details, email, contact numbers, and sponsorship preferences.</li>
+        <li>Admins: Limited information for system management and verification.</li>
+      </ul>
+
+      <h2>2. How We Use Your Information</h2>
+      <p>Your data is used for:</p>
+      <ul>
+        <li>Student verification by university administrators.</li>
+        <li>Connecting sponsors with eligible students.</li>
+        <li>Processing secure tuition payments.</li>
+        <li>Sending notifications about application status or new funding opportunities.</li>
+      </ul>
+
+      <h2>3. Data Protection</h2>
+      <p>We implement strict technical and organizational measures to safeguard your data, including encryption, secure payment gateways, and role-based access controls.</p>
+
+      <h2>4. Sharing of Information</h2>
+      <p>We do not sell or trade your personal information. Data may only be shared with:</p>
+      <ul>
+        <li>University administrators for verification.</li>
+        <li>Payment processors for secure transactions.</li>
+        <li>Regulatory authorities if required by law.</li>
+      </ul>
+
+      <h2>5. Cookies and Analytics</h2>
+      <p>We may use cookies and analytics tools to improve platform performance and user experience. You can disable cookies in your browser settings.</p>
+
+      <h2>6. User Rights</h2>
+      <ul>
+        <li>Access your personal data.</li>
+        <li>Request correction of inaccurate information.</li>
+        <li>Request deletion of your data (subject to legal and financial obligations).</li>
+      </ul>
+
+      <h2>7. Data Retention</h2>
+      <p>We retain user data only as long as necessary for funding processes, compliance, or as required by law.</p>
+
+      <h2>8. Third-Party Links</h2>
+      <p>Our platform may contain links to third-party sites (e.g., sponsor websites). We are not responsible for their privacy practices.</p>
+
+      <h2>9. Updates to Policy</h2>
+      <p>This Privacy Policy may be updated periodically. Users will be notified of changes via email or platform alerts.</p>
+
+      <h2>10. Contact Us</h2>
+      <p>If you have any questions about this Privacy Policy, please contact us at:  
+      <a href="mailto:support@gofundmeconnect.edu.za">support@gofundmeconnect.edu.za</a></p>
+    </div>
+  </section>
+  <footer>
+    <p>In partnership with the University of Zululand</p>
+    <p class="copyright">&copy; 2025 GoFundMe Connect. All rights reserved.</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

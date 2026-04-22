@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoFundMe Connect - System Actors</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2980b9;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .actors-page {
+            background-color: #f5f8fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .actors-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .actors-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .actors-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .actors-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .actor-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 350px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .actor-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .actor-header {
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .student-header {
+            background: linear-gradient(135deg, #1a5276, #2980b9);
+        }
+        
+        .sponsor-header {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+        
+        .admin-header {
+            background: linear-gradient(135deg, #e74c3c, #e67e22);
+        }
+        
+        .actor-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .actor-title {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .actor-body {
+            padding: 20px;
+        }
+        
+        .responsibilities {
+            margin-top: 20px;
+        }
+        
+        .responsibilities h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 5px;
+        }
+        
+        .responsibilities ul {
+            list-style-type: none;
+        }
+        
+        .responsibilities li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .responsibilities li:before {
+            content: "•";
+            color: var(--secondary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .system-diagram {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .system-diagram h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .diagram-actor {
+            width: 200px;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .diagram-arrow {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+        }
+        
+        .platform-center {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            margin: 0 auto;
+        }
+        
+        .actors-footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: var(--dark-color);
+            border-top: 1px solid #ddd;
+        }
+        
+        @media (max-width: 768px) {
+            .actors-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .actor-card {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .diagram-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .diagram-arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body class="actors-page">
+    <div class="actors-container">
+        <header class="actors-header">
+            <h1>GoFundMe Connect Platform</h1>
+            <p class="subtitle">Actors and Their Roles in the System</p>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+            </ul>
+        </header>
+        
+        <div class="actors-grid">
+            <div class="actor-card">
+                <div class="actor-header student-header">
+                    <div class="actor-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h2 class="actor-title">Students</h2>
+                    <p>Primary beneficiaries of the platform</p>
+                </div>
+                <div class="actor-body">
+                    <p>Students are at the heart of the GoFundMe Connect platform. They create profiles, apply for funding, and receive financial support for their education.</p>
+                    
+                    <div class="responsibilities">
+                        <h3>Key Responsibilities</h3>
+                        <ul>
+                            <li>Create and maintain accurate profiles</li>
+                            <li>Upload required documentation</li>
+                            <li>Apply for SRC funding and sponsorships</li>
+                            <li>Maintain academic performance standards</li>
+                            <li>Communicate with sponsors when needed</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="responsibilities">
+                        <h3>Platform Capabilities</h3>
+                        <ul>
+                            <li>SRC Fund application management</li>
+                            <li>Sponsorship search and applications</li>
+                            <li>Document upload and management</li>
+                            <li>Application status tracking</li>
+                            <li>Communication tools</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="actor-card">
+                <div class="actor-header sponsor-header">
+                    <div class="actor-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h2 class="actor-title">Sponsors</h2>
+                    <p>Providers of financial support</p>
+                </div>
+                <div class="actor-body">
+                    <p>Sponsors include individuals, corporations, alumni, and NGOs who want to support students' education through financial contributions.</p>
+                    
+                    <div class="responsibilities">
+                        <h3>Key Responsibilities</h3>
+                        <ul>
+                            <li>Register and verify sponsor profile</li>
+                            <li>Browse and select students to support</li>
+                            <li>Provide funding through secure channels</li>
+                            <li>Monitor impact of their contributions</li>
+                            <li>Maintain ethical sponsorship practices</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="responsibilities">
+                        <h3>Platform Capabilities</h3>
+                        <ul>
+                            <li>Student search and filtering tools</li>
+                            <li>Secure payment processing</li>
+                            <li>Sponsorship management dashboard</li>
+                            <li>Impact tracking and reporting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="actor-card">
+                <div class="actor-header admin-header">
+                    <div class="actor-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h2 class="actor-title">Administrators</h2>
+                    <p>Platform managers and verifiers</p>
+                </div>
+                <div class="actor-body">
+                    <p>Administrators ensure the platform operates smoothly, verify information, prevent fraud, and facilitate the connection between students and sponsors.</p>
+                    
+                    <div class="responsibilities">
+                        <h3>Key Responsibilities</h3>
+                        <ul>
+                            <li>Verify student eligibility and documents</li>
+                            <li>Monitor and prevent fraudulent activity</li>
+                            <li>Manage funding allocation</li>
+                            <li>Generate system reports and analytics</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="responsibilities">
+                        <h3>Platform Capabilities</h3>
+                        <ul>
+                            <li>Document verification system</li>
+                            <li>Application review and approval tools</li>
+                            <li>Fraud detection mechanisms</li>
+                            <li>Comprehensive reporting dashboard</li>
+                            <li>User management capabilities</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="system-diagram">
+            <h2>System Interaction Diagram</h2>
+            <div class="diagram-container">
+                <div class="diagram-actor student-header">
+                    <i class="fas fa-user-graduate fa-2x"></i>
+                    <h3>Students</h3>
+                    <p>Apply for funding</p>
+                </div>
+                
+                <div class="diagram-arrow">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                
+                <div class="platform-center">
+                    <i class="fas fa-plug fa-2x"></i>
+                    <h3>GoFundMe Connect Platform</h3>
+                    <p>Secure Matching System</p>
+                </div>
+                
+                <div class="diagram-arrow">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                
+                <div class="diagram-actor sponsor-header">
+                    <i class="fas fa-hand-holding-heart fa-2x"></i>
+                    <h3>Sponsors</h3>
+                    <p>Provide funding</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <div class="diagram-actor admin-header" style="width: 300px; margin: 0 auto;">
+                    <i class="fas fa-user-shield fa-2x"></i>
+                    <h3>Administrators</h3>
+                    <p>Manage and monitor all interactions</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="actors-footer">
+            <p>GoFundMe Connect - Bridging the gap in university funding</p>
+            <p>© 2025 University of Zululand. All rights reserved.</p>
+        </footer>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

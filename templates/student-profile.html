@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Profile — GoFundMe Connect</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9fafb;
+      color: #111827;
+    }
+    header {
+      background: #14532d;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    nav {
+      background: #166534;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #14532d;
+      margin-bottom: 20px;
+    }
+    .profile-field {
+      margin-bottom: 15px;
+    }
+    .profile-label {
+      font-weight: bold;
+      color: #374151;
+      margin-bottom: 5px;
+      display: block;
+    }
+    .profile-value {
+      background: #f3f4f6;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      font-size: 16px;
+      color: #111827;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Student Profile — GoFundMe Connect</h1>
+  </header>
+  <nav>
+    <a href="/student-dashboard">Dashboard</a>
+    <a href="/student-profile">Profile</a>
+    <a href="/student-logout">Logout</a>
+  </nav>
+  <main>
+    <h2>Your Profile</h2>
+    <div class="profile-field">
+      <span class="profile-label">Full Name</span>
+      <div id="fullName" class="profile-value">Loading...</div>
+    </div>
+    <div class="profile-field">
+      <span class="profile-label">Student Number</span>
+      <div id="studentNumber" class="profile-value">Loading...</div>
+    </div>
+    <div class="profile-field">
+      <span class="profile-label">Email</span>
+      <div id="email" class="profile-value">Loading...</div>
+    </div>
+    <div class="profile-field">
+      <span class="profile-label">Contact Number</span>
+      <div id="contactNumber" class="profile-value">Loading...</div>
+    </div>
+    <div class="profile-field">
+      <span class="profile-label">Gender</span>
+      <div id="gender" class="profile-value">Loading...</div>
+    </div>
+    <div class="profile-field">
+      <span class="profile-label">Campus</span>
+      <div id="campus" class="profile-value">Loading...</div>
+    </div>
+    <div class="profile-field">
+      <span class="profile-label">Qualification / Course</span>
+      <div id="qualification" class="profile-value">Loading...</div>
+    </div>
+    <div class="profile-field">
+      <span class="profile-label">Faculty</span>
+      <div id="faculty" class="profile-value">Loading...</div>
+    </div>
+    <div class="profile-field">
+      <span class="profile-label">Year/Level of Study</span>
+      <div id="yearLevel" class="profile-value">Loading...</div>
+    </div>
+    <div class="profile-field">
+      <span class="profile-label">Expected Year of Completion</span>
+      <div id="expectedCompletion" class="profile-value">Loading...</div>
+    </div>
+    <div class="profile-field">
+      <span class="profile-label">GPA</span>
+      <div id="gpa" class="profile-value">Loading...</div>
+    </div>
+  </main>
+  <form id="studentProfileForm" style="max-width: 900px; margin: 30px auto; padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+    <h2>Edit Your Profile</h2>
+    <div class="profile-field">
+      <label class="profile-label" for="fullNameInput">Full Name</label>
+      <input type="text" id="fullNameInput" name="full_name" class="profile-value" required />
+    </div>
+    <div class="profile-field">
+      <label class="profile-label" for="studentNumberInput">Student Number</label>
+      <input type="text" id="studentNumberInput" name="student_number" class="profile-value" readonly />
+    </div>
+    <div class="profile-field">
+      <label class="profile-label" for="emailInput">Email</label>
+      <input type="email" id="emailInput" name="email" class="profile-value" required />
+    </div>
+    <div class="profile-field">
+      <label class="profile-label" for="contactNumberInput">Contact Number</label>
+      <input type="text" id="contactNumberInput" name="contact_number" class="profile-value" />
+    </div>
+    <div class="profile-field">
+      <label class="profile-label" for="genderInput">Gender</label>
+      <input type="text" id="genderInput" name="gender" class="profile-value" />
+    </div>
+    <div class="profile-field">
+      <label class="profile-label" for="campusInput">Campus</label>
+      <input type="text" id="campusInput" name="campus" class="profile-value" />
+    </div>
+    <div class="profile-field">
+      <label class="profile-label" for="qualificationInput">Qualification / Course</label>
+      <input type="text" id="qualificationInput" name="qualification" class="profile-value" />
+    </div>
+    <div class="profile-field">
+      <label class="profile-label" for="facultyInput">Faculty</label>
+      <input type="text" id="facultyInput" name="faculty" class="profile-value" />
+    </div>
+    <div class="profile-field">
+      <label class="profile-label" for="yearLevelInput">Year/Level of Study</label>
+      <input type="text" id="yearLevelInput" name="year_level" class="profile-value" />
+    </div>
+    <div class="profile-field">
+      <label class="profile-label" for="expectedCompletionInput">Expected Year of Completion</label>
+      <input type="date" id="expectedCompletionInput" name="expected_completion" class="profile-value" />
+    </div>
+    <div class="profile-field">
+      <label class="profile-label" for="gpaInput">GPA</label>
+      <input type="text" id="gpaInput" name="gpa" class="profile-value" />
+    </div>
+    <button type="submit" class="btn" style="background: #14532d; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer;">Save</button>
+  </form>
+  <script>
+    async function fetchStudentProfile() {
+      try {
+        const response = await fetch('/api/student/profile', {
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch profile data');
+        }
+        const data = await response.json();
+        document.getElementById('fullNameInput').value = data.full_name || '';
+        document.getElementById('studentNumberInput').value = data.student_number || '';
+        document.getElementById('emailInput').value = data.email || '';
+        document.getElementById('contactNumberInput').value = data.contact_number || '';
+        document.getElementById('genderInput').value = data.gender || '';
+        document.getElementById('campusInput').value = data.campus || '';
+        document.getElementById('qualificationInput').value = data.qualification || '';
+        document.getElementById('facultyInput').value = data.faculty || '';
+        document.getElementById('yearLevelInput').value = data.year_level || '';
+        document.getElementById('expectedCompletionInput').value = data.expected_completion || '';
+        document.getElementById('gpaInput').value = data.gpa || '';
+      } catch (error) {
+        console.error('Error loading student profile:', error);
+        const fields = ['fullNameInput', 'studentNumberInput', 'emailInput', 'contactNumberInput', 'genderInput', 'campusInput', 'qualificationInput', 'facultyInput', 'yearLevelInput', 'expectedCompletionInput', 'gpaInput'];
+        fields.forEach(id => {
+          document.getElementById(id).value = 'Error loading data';
+        });
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchStudentProfile();
+      document.getElementById('studentProfileForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = {};
+        formData.forEach((value, key) => {
+          data[key] = value;
+        });
+        try {
+          const response = await fetch('/api/student/profile', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            body: JSON.stringify(data)
+          });
+          if (!response.ok) {
+            throw new Error('Failed to update profile');
+          }
+          alert('Profile updated successfully');
+        } catch (error) {
+          alert('Error updating profile: ' + error.message);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
